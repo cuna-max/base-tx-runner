@@ -1,5 +1,7 @@
 # Base TX Runner
 
+![앱 스크린샷](image/screenshot.png)
+
 Base 체인에서 대량의 저렴한 트랜잭션을 전송하기 위한 Electron 데스크톱 애플리케이션입니다.
 
 ## 기능
