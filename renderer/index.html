@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base TX Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Base TX Runner</h1>
+        <div id="error-banner" class="error-banner hidden"></div>
+      </header>
+
+      <div class="main-content">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Connection & Wallet Section -->
+          <section class="section">
+            <h2>연결 & 지갑</h2>
+
+            <div class="form-group">
+              <label for="rpc-url">
+                RPC URL
+                <a
+                  href="https://chainlist.org/chain/8453"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="external-link"
+                  >(RPC 리스트 확인)</a
+                >
+              </label>
+              <input
+                type="text"
+                id="rpc-url"
+                placeholder="https://mainnet.base.org"
+                value="https://mainnet.base.org"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="private-key">Private Key</label>
+              <input type="password" id="private-key" placeholder="0x..." />
+              <small class="security-note"
+                >개인 키는 로컬에서만 사용되며 업로드되지 않습니다.</small
+              >
+            </div>
+
+            <button id="connect-btn" class="btn btn-primary">지갑 연결</button>
+            <div id="connection-status" class="connection-status"></div>
+          </section>
+
+          <!-- Transaction Configuration Section -->
+          <section class="section">
+            <h2>트랜잭션 설정</h2>
+
+            <div class="form-group">
+              <label for="target-address"
+                >대상 주소 <span class="required">*</span></label
+              >
+              <input type="text" id="target-address" placeholder="0x..." />
+              <div id="target-address-error" class="error-message hidden"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="tx-count">트랜잭션 수</label>
+              <input
+                type="number"
+                id="tx-count"
+                min="1"
+                max="2000"
+                value="1000"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="tx-value">트랜잭션당 값 (ETH)</label>
+              <input
+                type="number"
+                id="tx-value"
+                min="0"
+                step="0.000000001"
+                value="0"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="gas-price">Gas 가격 (gwei)</label>
+              <input
+                type="number"
+                id="gas-price"
+                min="0"
+                step="0.001"
+                value="0.02"
+              />
+              <div id="gas-price-warning" class="warning-message hidden"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="delay">트랜잭션 간 지연 (ms)</label>
+              <input type="number" id="delay" min="0" value="300" />
+            </div>
+
+            <div class="form-group">
+              <label for="max-pending">최대 대기 중 트랜잭션 수</label>
+              <input type="number" id="max-pending" min="1" value="5" />
+            </div>
+
+            <div id="gas-estimate" class="gas-estimate"></div>
+          </section>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Run Controls -->
+          <section class="section">
+            <h2>실행 제어</h2>
+            <div class="button-group">
+              <button id="start-btn" class="btn btn-success" disabled>
+                전송 시작
+              </button>
+              <button id="stop-btn" class="btn btn-danger" disabled>
+                중지
+              </button>
+            </div>
+          </section>
+
+          <!-- Status Section -->
+          <section class="section">
+            <h2>상태</h2>
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-label">계획된 TX:</span>
+                <span id="planned-count" class="status-value">0</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">전송됨:</span>
+                <span id="sent-count" class="status-value">0</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">확인됨:</span>
+                <span id="confirmed-count" class="status-value">0</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">실패:</span>
+                <span id="failed-count" class="status-value">0</span>
+              </div>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+              <div class="progress-text">
+                <span id="progress-text">전송됨: 0 / 총: 0</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Logs Section -->
+          <section class="section">
+            <h2>로그</h2>
+            <div id="logs-container" class="logs-container"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="loader.js"></script>
+  </body>
+</html>
