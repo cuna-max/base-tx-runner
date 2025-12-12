@@ -35,17 +35,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build application
+      - name: Build macOS
+        if: matrix.platform == 'mac'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if [ "${{ matrix.platform }}" == "mac" ]; then
-            npm run build:mac
-          elif [ "${{ matrix.platform }}" == "win" ]; then
-            npm run build:win
-          else
-            npm run build:linux
-          fi
+        run: npm run build:mac
+
+      - name: Build Windows
+        if: matrix.platform == 'win'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build:win
+
+      - name: Build Linux
+        if: matrix.platform == 'linux'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build:linux
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
