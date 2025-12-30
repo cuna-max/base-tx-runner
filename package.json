@@ -1,0 +1,77 @@
+{
+  "name": "base-tx-runner",
+  "version": "0.0.1",
+  "description": "Send large numbers of cheap transactions on Base chain",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --mac --win --linux",
+    "dist": "npm run build"
+  },
+  "keywords": [
+    "electron",
+    "ethereum",
+    "base",
+    "blockchain"
+  ],
+  "author": {
+    "name": "cuna-max",
+    "email": "crypto.synuns@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
+  "build": {
+    "appId": "com.basetxrunner.app",
+    "productName": "Base TX Runner",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "cuna-max",
+      "repo": "base-tx-runner"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "cuna-max <crypto.synuns@gmail.com>",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
